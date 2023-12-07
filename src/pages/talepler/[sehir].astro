@@ -17,8 +17,7 @@ export function getStaticPaths() {
     {params: {name:'Adana',slug: 'adana'}}
   ]
 }
-
-const { sehir } = Astro.params;
+const { name, slug } = Astro.params;
 ---
 <Layout title="Talepler">
 	<main class="space-y-40 mb-40 pt-40">
