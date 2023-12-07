@@ -1,16 +1,14 @@
 ---
 import Container from "./Container.astro"
-
+const { sehir } = Astro.params;
 ---
 
 <div id="blog">
   <Container>
-    {Astro.request.url}
       <div class="mb-12 space-y-2 text-center">
-        <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Latest Articles</h2>
+        <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Talepler</h2>
         <p class="lg:mx-auto lg:w-6/12 text-gray-600 dark:text-gray-300">
-          Quam hic dolore cumque voluptate rerum beatae et quae, tempore sunt, debitis dolorum officia
-          aliquid explicabo? Excepturi, voluptate?
+          Talep listesi {sehir}
         </p>
       </div>
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
