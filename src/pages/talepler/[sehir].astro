@@ -7,17 +7,26 @@ import CallToAction from '../../components/CallToAction.astro';
 import Blog from '../../components/Blog.astro';
 import AdaylarSection from '../../components/AdaylarSection.astro';
 import TaleplerSection from '../../components/TaleplerSection.astro';
-import sehirler from '../../data/sehirler';
+import {sehirler} from '../../data/tumdata';
 
 export function getStaticPaths() {
   return [
-    {params: {name:'İstanbul',slug: 'istanbul'}},
-    {params: {name:'İzmir',slug: 'izmir'}},
-    {params: {name:'Ankara',slug: 'ankara'}},
-    {params: {name:'Adana',slug: 'adana'}}
+    {params: {sehir: 'ankara'}},
+    {params: {sehir: 'istanbul'}},
+    {params: {sehir: 'bursa'}},
+    {params: {sehir: 'izmir'}},
+    {params: {sehir: 'adana'}},
+    {params: {sehir: 'antalya'}},
+    {params: {sehir: 'konya'}},
+    {params: {sehir: 'gaziantep'}},
+    {params: {sehir: 'mersin'}},
+    {params: {sehir: 'enson'}},
+    {params: {sehir: 'diyarbakir'}},
+    {params: {sehir: undefined }}
   ]
 }
-const { name, slug } = Astro.params;
+
+const { sehir } = Astro.params;
 ---
 <Layout title="Talepler">
 	<main class="space-y-40 mb-40 pt-40">

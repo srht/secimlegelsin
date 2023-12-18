@@ -1,6 +1,7 @@
 ---
 import Container from "./Container.astro"
-const { name, slug } = Astro.params;
+
+const { sehir } = Astro.params;
 ---
 
 <div id="blog">
@@ -8,7 +9,7 @@ const { name, slug } = Astro.params;
       <div class="mb-12 space-y-2 text-center">
         <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Talepler</h2>
         <p class="lg:mx-auto lg:w-6/12 text-gray-600 dark:text-gray-300">
-          Talep listesi {name}
+          Talep listesi {sehir}
         </p>
       </div>
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -60,8 +61,8 @@ const { name, slug } = Astro.params;
             <p class="mt-6 mb-8 text-gray-600 dark:text-gray-300">
               Voluptates harum aliquam totam, doloribus eum impedit atque! Temporibus...
             </p>
-            <a class="inline-block" href="#">
-              <span class="text-info dark:text-blue-300">Read more</span>
+            <a class="inline-block" href="/talepdetay">
+              <span class="text-info dark:text-blue-300">Talep Detayı</span>
             </a>
           </div>
           
