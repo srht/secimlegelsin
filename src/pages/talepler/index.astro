@@ -7,9 +7,11 @@ import CallToAction from '../../components/CallToAction.astro';
 import Blog from '../../components/Blog.astro';
 import AdaylarSection from '../../components/AdaylarSection.astro';
 import TaleplerSection from '../../components/TaleplerSection.astro';
+import {getUser} from '../../auth';
+const user = await getUser(Astro.request);
 ---
 
-<Layout title="Talepler">
+<Layout user={user} title="Talepler">
 	<main class="space-y-40 mb-40 pt-40">
 		<TaleplerSection/>
 		

@@ -10,12 +10,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^3.0.7",
+    "@astrojs/react": "^3.0.9",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.0",
-    "astro": "^1.1.5"
+    "astro": "^4.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^1.0.0"
+    "@astrojs/tailwind": "^5.1.0",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18"
   }
 }

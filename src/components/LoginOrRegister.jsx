@@ -1,5 +1,6 @@
+import {useState} from 'react'
 import {supabase} from '../auth'
-import {useState } from 'react'
+
 function Spinner() {
     return <div role="status" className="absolute pl-2 left-0">
         <svg aria-hidden="true"
@@ -22,12 +23,12 @@ export default function Login() {
     const handleSendLink = async () => {
         setStatus({error: '', success: false, isLoading: true})
         
-        const { data, error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-          options: {
-              redirectTo: 'https://example.com/welcome'
-            }})
-            
+const { error } = await supabase.auth.signInWithOtp({
+            email: email,
+            options: {
+                emailRedirectTo: import.meta.env.PUBLIC_REDIRECT_URL
+            }
+        })
         if (error?.message) {
             setStatus(() => ({
                 error: result.error.message,

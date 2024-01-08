@@ -8,6 +8,8 @@ import Blog from '../../components/Blog.astro';
 import AdaylarSection from '../../components/AdaylarSection.astro';
 import TaleplerSection from '../../components/TaleplerSection.astro';
 import {sehirler} from '../../data/tumdata';
+import {getUser} from '../../auth';
+const user = await getUser(Astro.request);
 
 export function getStaticPaths() {
   return [
@@ -28,7 +30,7 @@ export function getStaticPaths() {
 
 const { sehir } = Astro.params;
 ---
-<Layout title="Talepler">
+<Layout user={user} title="Talepler">
 	<main class="space-y-40 mb-40 pt-40">
 		<TaleplerSection/>
 		

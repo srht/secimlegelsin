@@ -14,7 +14,8 @@ const supabaseKey = import.meta.env.SUPABASE_KEY
 // Create a single supabase client for interacting with your database
 const supabase = createClient('https://ckxsatunmczlcaakzgef.supabase.co', supabaseKey)
 // For döngüsü ile şehirleri yazdırma
-
+import {getUser} from '../auth';
+const user = await getUser(Astro.request);
 const { data, error } = await supabase.auth.signInWithOAuth({
   provider: 'google',
 options: {
@@ -24,7 +25,7 @@ options: {
   
 ---
 
-<Layout title="Şehirler">
+<Layout user={user} title="Şehirler">
 	<main class="space-y-40 mb-40">
 		<YeniTalepSection/>
 		
