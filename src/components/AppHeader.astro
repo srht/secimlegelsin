@@ -1,5 +1,7 @@
 ---
+import { getUser } from "../auth";
 import Container from "./Container.astro";
+const user = await getUser(Astro.request);
 ---
 
 <header>
@@ -94,6 +96,9 @@ import Container from "./Container.astro";
                 >
                   <span>Adaylar</span>
                 </a>
+              </li>
+              <li>sdf
+                {user?.email}
               </li>
             </ul>
           </div>
