@@ -1,4 +1,5 @@
 ---
+import Container from "../components/Container.astro";
 import Layout from "../layouts/Layout.astro";
 
 const { cookies, redirect } = Astro;
@@ -12,14 +13,17 @@ if (accessToken && refreshToken) {
 ---
 
 <Layout user={null} title="Sign in">
-  <h1>Sign in</h1>
-  <p>New here? <a href="/register">Create an account</a></p>
+  <main class="space-y-40 mb-40">
+		<div id="sehirler">
+			<Container>
+  <h1>Seçimle Gelsin'e Kullanıcı Giriş Yapın</h1>
+  <h3>Seçimle Gelsin'e taleplerinizi eklemek için kullanıcı giriş yapabilirsiniz!</h3>
   <form action="/api/auth/signin" method="post">
-    <label for="email" for="email">Email</label>
-    <input type="email" name="email" id="email" />
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-    <button type="submit">Login</button>
-    <button value="google" name="provider" type="submit">Sign in with GitHub</button>
+    <button value="google" name="provider" type="submit">
+      <img src="/images/gicon.svg" />
+      Google ile Giriş</button>
   </form>
+      </Container>
+    </div>
+  </main>
 </Layout>

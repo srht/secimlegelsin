@@ -7,25 +7,20 @@ import Testimonials from '../components/Testimonials.astro';
 import CallToAction from '../components/CallToAction.astro';
 import Blog from '../components/Blog.astro';
 import YeniTalepSection from '../components/YeniTalepSection.astro';
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from "../lib/supabase";
 
-const supabaseKey = import.meta.env.SUPABASE_KEY
+const { cookies, redirect } = Astro;
 
-// Create a single supabase client for interacting with your database
-const supabase = createClient('https://ckxsatunmczlcaakzgef.supabase.co', supabaseKey)
-// For döngüsü ile şehirleri yazdırma
-import {getUser} from '../auth';
-const user = await getUser(Astro.request);
-const { data, error } = await supabase.auth.signInWithOAuth({
-  provider: 'google',
-options: {
-    redirectTo: 'https://example.com/welcome'
-  }})
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
 
+if (!accessToken || !refreshToken) {
+  return redirect("/login");
+}
   
 ---
 
-<Layout user={user} title="Şehirler">
+<Layout user={null} title="Şehirler">
 	<main class="space-y-40 mb-40">
 		<YeniTalepSection/>
 		

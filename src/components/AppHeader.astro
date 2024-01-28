@@ -1,7 +1,20 @@
 ---
 import { getUser } from "../auth";
 import Container from "./Container.astro";
-const user = await getUser(Astro.request);
+import LoginStatus from "./LoginStatus.astro";
+//const user = await getUser(Astro.request);
+//console.log(user)
+
+import Layout from "../layouts/Layout.astro";
+import { supabase } from "../lib/supabase";
+
+const { cookies, redirect } = Astro;
+
+const { data, error } = await supabase.auth.getSession();
+
+
+const email = data?.session?.user?.email;
+const user=data?.session?.user;
 ---
 
 <header>
@@ -97,15 +110,17 @@ const user = await getUser(Astro.request);
                   <span>Adaylar</span>
                 </a>
               </li>
-              <li>sdf
-                {user?.email}
+              <li>
+                
+{(user)?<div><span>Merhaba {email},</span><form action="/api/auth/signout"><button type="submit">Çıkış</button></form></div>:<a href="/login" class="block md:px-4 transition hover:text-primary">Giriş Yap</a>}
+
               </li>
             </ul>
           </div>
 
           <div class="mt-12 lg:mt-0">
             <a
-              href="/yeni-talep"
+              href="/yenitalep"
               class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
             >
               <span class="relative text-sm font-semibold text-white"

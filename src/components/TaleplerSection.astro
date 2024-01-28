@@ -1,6 +1,8 @@
 ---
 import { createClient } from "@supabase/supabase-js";
 import Container from "./Container.astro";
+import CategoryPic from "../lib/categorypic";
+
 const supabaseKey = import.meta.env.SUPABASE_KEY;
 const supabase = createClient(
   "https://ckxsatunmczlcaakzgef.supabase.co",
@@ -8,7 +10,8 @@ const supabase = createClient(
 );
 
 const { sehir } = Astro.params;
-const { data, error } = await supabase.from("requests").select().limit(10);
+const { data, error } = sehir? await supabase.from("requests").select().eq('address',sehir.toLocaleUpperCase('tr')[0]+sehir.substring(1)).limit(10)
+:await supabase.from("requests").select().limit(10)
 console.log(data);
 ---
 
@@ -24,32 +27,36 @@ console.log(data);
     </div>
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
-        data.map(request=>(
+        data?.map(request=>(
+       
         <div
         class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
       >
         <div class="relative overflow-hidden rounded-xl">
+          <a href={`/talepdetay?id=${request.id}`}>
           <img
-            src="https://images.unsplash.com/photo-1661749711934-492cd19a25c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80"
+            src={`/images/${CategoryPic(request.category)}.png`}
             alt="art cover"
             loading="lazy"
             width="1000"
             height="667"
             class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
           />
+          </a>
         </div>
         <div class="mt-6 relative">
+          <a href={`/talepdetay?id=${request.id}`}>
           <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
             {request.title}
           </h3>
           <p class="mt-6 mb-8 text-gray-600 dark:text-gray-300">
             {request.description}
           </p>
-          <a class="inline-block" href={`/talep-detay?id=${request.id}`}>
             <span class="text-info dark:text-blue-300">Talep detayı</span>
           </a>
         </div>
       </div>
+       </a>
         ))
       }
 

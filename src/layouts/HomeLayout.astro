@@ -2,27 +2,6 @@
 import AppFooter from "../components/AppFooter.astro";
 import AppHeader from "../components/AppHeader.astro"
 import { supabase } from "../lib/supabase";
-
-const { cookies, redirect } = Astro;
-
-const accessToken = cookies.get("sb-access-token");
-const refreshToken = cookies.get("sb-refresh-token");
-
-const { data, error } = await supabase.auth.setSession({
-  refresh_token: refreshToken.value,
-  access_token: accessToken.value,
-});
-
-if (error) {
-  cookies.delete("sb-access-token", {
-    path: "/",
-  });
-  cookies.delete("sb-refresh-token", {
-    path: "/",
-  });
-}
-
-const email = data?.user?.email;
 ---
 
 
@@ -39,7 +18,7 @@ const email = data?.user?.email;
 		<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
 	</head>
 	<body class="bg-white dark:bg-gray-900">
-		<AppHeader user={data.user}/>
+		<AppHeader user={null}/>
 		<slot />
 		<AppFooter/>
 	</body>
