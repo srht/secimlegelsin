@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
+    "strict": false,
     "target": "ES2020",
     "jsx": "react-jsx",
     "jsxImportSource": "react"

@@ -11,23 +11,20 @@ import Container from '../components/Container.astro';
 import { createClient } from '@supabase/supabase-js';
 import {getUser} from '../auth';
 import CategoryPic from '../lib/categorypic';
-import Alkis from '../components/Alkis.astro';
-const supabaseKey = import.meta.env.SUPABASE_KEY;
-
-const supabase = createClient(
-  "https://ckxsatunmczlcaakzgef.supabase.co",
-  supabaseKey
-);
+import Alkis from '../components/Alkis.jsx';
+import { supabase } from "../lib/supabase";
 
 const id = Astro.url.searchParams.get('id')! || '';
 
-const user = await getUser(Astro.request);
+//const user = await getUser(Astro.request);
+const sessionData= await supabase.auth.getSession();
 const { data, error } = await supabase.from("requests").select().eq('id', id).limit(1);
 const requestDetail=data[0];
-
+console.log(sessionData.data.session.user.id)
+const userData=sessionData.data.session.user;
 ---
 
-<Layout user={user} title="Şehirler">
+<Layout user={userData} title="Şehirler">
 	<main class="space-y-40 mb-40">
 		<div id="sehirler">
 			<Container>
@@ -50,9 +47,8 @@ const requestDetail=data[0];
 				<div class="mt-6 relative">
 					{requestDetail.description}
 				</div>
-				<Alkis client:load />
+				<Alkis user={userData} requestid={requestDetail.id} client:load />
 			  </div>
-				
 			  </div>
 				</div>
 			</Container>

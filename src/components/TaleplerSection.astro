@@ -2,12 +2,7 @@
 import { createClient } from "@supabase/supabase-js";
 import Container from "./Container.astro";
 import CategoryPic from "../lib/categorypic";
-
-const supabaseKey = import.meta.env.SUPABASE_KEY;
-const supabase = createClient(
-  "https://ckxsatunmczlcaakzgef.supabase.co",
-  supabaseKey
-);
+import { supabase } from "../lib/supabase";
 
 const { sehir } = Astro.params;
 const { data, error } = sehir? await supabase.from("requests").select().eq('address',sehir.toLocaleUpperCase('tr')[0]+sehir.substring(1)).limit(10)
