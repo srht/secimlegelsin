@@ -12,41 +12,36 @@ console.log(data);
 
 <div id="blog">
   <Container>
-    <div class="mb-12 space-y-2 text-center">
-      <h2 class="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">
-        Talepler
-      </h2>
-      <p class="lg:mx-auto lg:w-6/12 text-gray-600 dark:text-gray-300">
-        Talep listesi {sehir}
-      </p>
-    </div>
+    <div class="grid grid-cols-4 gap-2">
+			<div class=""><img class="rounded-full w-16" src="https://yt3.googleusercontent.com/fs3O_LWpKmRXPwIxxacGffv_YyiS7sHUT8xD10Cp-KLy0TU62oZL2YCysK-leO-JpljHHl-k-w=s900-c-k-c0x00ffffff-no-rj" alt="image description"></div>
+			<div class=""><img class="rounded-full w-16" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/AK_Parti_%C4%B0stanbul_Milletvekili_Murat_Kurum_%28cropped%29.jpg/1200px-AK_Parti_%C4%B0stanbul_Milletvekili_Murat_Kurum_%28cropped%29.jpg" alt="image description"></div>
+			
+		</div>
     <div class="grid gap-2">
       {
         data?.map(request=>(
        
         <div
-        class="group p-4 flex sm:p-4 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
+        class="group p-4 columns flex h-36 sm:p-4 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
       >
-        <div class="relative overflow-hidden rounded-xl">
-          <a href={`/talepdetay?id=${request.id}`}>
+        <div class="mr-5 w-40">
           <img
             src={`/images/${CategoryPic(request.category)}.png`}
             alt="art cover"
             loading="lazy"
-            class="w-30 h-40 object-cover object-top transition duration-500 group-hover:scale-105"
+            class="rounded-xl transition duration-500 group-hover:scale-105"
           />
-          </a>
         </div>
-        <div class="mt-3 relative">
+        <div class="mt-3 w-auto relative">
           <a href={`/talepdetay?id=${request.id}`}>
           <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
             {request.title}
           </h3>
-          <p class="mt-6 mb-8 text-gray-600 dark:text-gray-300">
+          <p class="mt-1 mb-2 text-gray-600 dark:text-gray-300">
             {request.description}
           </p>
-            <span class="text-info dark:text-blue-300">Talep detayı</span>
           </a>
+          <a href={`/talepdetay?id=${request.id}`}>Talep</a>
         </div>
       </div>
        </a>
