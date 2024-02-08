@@ -20,8 +20,8 @@ const id = Astro.url.searchParams.get('id')! || '';
 const sessionData= await supabase.auth.getSession();
 const { data, error } = await supabase.from("requests").select().eq('id', id).limit(1);
 const requestDetail=data[0];
-console.log(sessionData.data.session.user.id)
-const userData=sessionData.data.session.user;
+console.log(sessionData?.data?.session?.user?.id)
+const userData=sessionData?.data?.session?.user;
 ---
 
 <Layout user={userData} title="Şehirler">
@@ -47,7 +47,7 @@ const userData=sessionData.data.session.user;
 				<div class="mt-6 relative">
 					{requestDetail.description}
 				</div>
-				<Alkis user={userData} requestid={requestDetail.id} client:load />
+				{userData?<Alkis user={userData} requestid={requestDetail.id} client:load />:<span></span>}
 			  </div>
 			  </div>
 				</div>
