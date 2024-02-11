@@ -1,0 +1,29 @@
+---
+import Container from "../components/Container.astro";
+import Layout from "../layouts/Layout.astro";
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+if (accessToken && refreshToken) {
+  return redirect("/dashboard");
+}
+---
+
+<Layout user={null} title="Sign in">
+  <main class="space-y-40 mb-40">
+		<div id="sehirler">
+			<Container>
+  <h1>Seçimle Gelsin'e Kullanıcı Giriş Yapın</h1>
+  <h3>Seçimle Gelsin'e taleplerinizi eklemek için kullanıcı giriş yapabilirsiniz!</h3>
+  <form action="/api/auth/signin" method="post">
+    <button value="google" name="provider" type="submit">
+      <img src="/images/gicon.svg" />
+      Google ile Giriş</button>
+  </form>
+      </Container>
+    </div>
+  </main>
+</Layout>

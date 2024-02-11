@@ -11,10 +11,12 @@ supabase.from('votes').insert({
     userid:param.user.id,
     requestid:param.requestid
 }).then((res)=>console.log(res))
-        
+        alert("Gönderildi!")
     }
   
-    return (<button onClick={alkisClick} id="alkis">Alkış</button>)
+    return (<button onClick={alkisClick} id="alkis">
+    <img class="w-10" src='/images/clapping.png' />
+    </button>)
 }
 
 

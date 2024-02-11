@@ -1,22 +1,18 @@
 ---
-import { createClient } from "@supabase/supabase-js";
+import { Image } from 'astro:assets';
 import Container from "./Container.astro";
 import CategoryPic from "../lib/categorypic";
 import { supabase } from "../lib/supabase";
 
 const { sehir } = Astro.params;
 const { data, error } = sehir? await supabase.from("requests").select().eq('address',sehir.toLocaleUpperCase('tr')[0]+sehir.substring(1)).limit(10)
-:await supabase.from("requests").select().limit(10)
+:await supabase.from("requests").select().order("created_at", {ascending: false}).limit(10)
 console.log(data);
 ---
 
 <div id="blog">
   <Container>
-    <div class="grid grid-cols-4 gap-2">
-			<div class=""><img class="rounded-full w-16" src="https://yt3.googleusercontent.com/fs3O_LWpKmRXPwIxxacGffv_YyiS7sHUT8xD10Cp-KLy0TU62oZL2YCysK-leO-JpljHHl-k-w=s900-c-k-c0x00ffffff-no-rj" alt="image description"></div>
-			<div class=""><img class="rounded-full w-16" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/AK_Parti_%C4%B0stanbul_Milletvekili_Murat_Kurum_%28cropped%29.jpg/1200px-AK_Parti_%C4%B0stanbul_Milletvekili_Murat_Kurum_%28cropped%29.jpg" alt="image description"></div>
-			
-		</div>
+
     <div class="grid gap-2">
       {
         data?.map(request=>(
@@ -24,15 +20,15 @@ console.log(data);
         <div
         class="group p-4 columns flex h-36 sm:p-4 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
       >
-        <div class="mr-5 w-40">
+        <div class="mr-2 w-3/12">
           <img
             src={`/images/${CategoryPic(request.category)}.png`}
             alt="art cover"
             loading="lazy"
-            class="rounded-xl transition duration-500 group-hover:scale-105"
+            class="rounded-xl w-32 transition duration-500 group-hover:scale-105"
           />
         </div>
-        <div class="mt-3 w-auto relative">
+        <div class="w-8/12 relative">
           <a href={`/talepdetay?id=${request.id}`}>
           <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
             {request.title}
@@ -43,6 +39,16 @@ console.log(data);
           </a>
           <a href={`/talepdetay?id=${request.id}`}>Talep</a>
         </div>
+        <div class="mr-5 w-1/12">
+          <a href={`/talepdetay?id=${request.id}`}>
+          <img
+            src="/images/clapping.png"
+            alt="art cover"
+            loading="lazy"
+            class="rounded-xl w-10 transition duration-500 hover:scale-105"
+          />
+          </a>
+          </div>
       </div>
        </a>
         ))
