@@ -4,14 +4,12 @@ import Container from "./Container.astro"
 // Türkiye'deki bazı şehirleri içeren bir dizi
 import {talepturleri} from '../data/tumdata';
 import SehirlerDropdown from "./SehirlerDropdown.astro";
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseKey = import.meta.env.SUPABASE_KEY
-
-// Create a single supabase client for interacting with your database
-const supabase = createClient('https://ckxsatunmczlcaakzgef.supabase.co', supabaseKey)
+import { supabase } from "../lib/supabase";
+let ResultMessage=""
 if (Astro.request.method === 'POST') {
   try{
+    const sessionData= await supabase.auth.getSession();
+const userData=sessionData?.data?.session?.user;
     // Getting posted data from our contact form
     const data = await Astro.request.formData();
     const baslik = data.get('baslik');
@@ -28,8 +26,12 @@ if (Astro.request.method === 'POST') {
       'keywords':keywordsArray,
       'category':kategoriler,
       'address':sehir,
-      'county':ilce
-    }).then(res=>console.log(res));
+      'county':ilce,
+      'requested_by':userData.id
+    }).then(res=>{
+      console.log(res);
+      ResultMessage="Talebiniz oluşturuldu. Kısa bir süre içinde onaylandıktan sonra yayınlanacak."
+    });
     
   }catch(ex){
 
@@ -48,6 +50,8 @@ if (Astro.request.method === 'POST') {
         Yeni Talep
       </h2>
       <p class="text-gray-600 dark:text-gray-300">Talebinizi oluşturun</p>
+      <br>
+      <p class="text-xl"><strong>{ResultMessage}</strong></p>
     </div>
     <div class="grid gap-8">
     <div class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">

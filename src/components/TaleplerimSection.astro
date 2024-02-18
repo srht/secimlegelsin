@@ -6,13 +6,11 @@ import { supabase } from "../lib/supabase";
 import Alkis from './Alkis';
 
 //const fields='title,description,address,county,category,id,count(votes(id))'
-const { sehir } = Astro.params;
 const sessionData= await supabase.auth.getSession();
 const userData=sessionData?.data?.session?.user;
-const { data, error } = sehir? await supabase.from("retrieveview").select().eq('address',sehir.toLocaleUpperCase('tr')[0]+sehir.substring(1)).limit(10)
-:await supabase.from("retrieveview").select().order("created_at", {ascending: false}).limit(10)
+const { data, error } = await supabase.from("requests").select().eq('requested_by',userData.id).order("created_at", {ascending: false}).limit(10)
 //const {data,error}=await supabase.from('retrieveview').select()
-console.log(data);
+console.log('ddd',userData);
 ---
 
 <div id="blog">
@@ -46,11 +44,6 @@ console.log(data);
                 >Talebi Görüntüle</span>
             </a>
         </div>
-        <div class="ml-5 w-1/12">
-          <Alkis user={userData} requestid={request.id} client:load />
-          {!userData&&request.count>0?<span class="text-lg"><strong>{request.count}</strong></span>:<span></span>}
-          </a>
-          </div>
       </div>
        </a>
         ))

@@ -24,6 +24,11 @@ const sehirler:sehir[] = [{name:"İstanbul", slug:"istanbul"},
 {name:"Konya", slug:"konya"},
 {name:"Gaziantep", slug:"gaziantep"},
 {name:"Mersin", slug:"mersin"},
-{name:"Diyarbakır", slug:"diyarbakir"}];
+{name:"Kocaeli", slug:"kocaeli"},
+{name:"Trabzon", slug:"trabzon"},
+{name:"Eskişehir", slug:"eskisehir"},
+{name:"Erzurum", slug:"erzurum"},
+{name:"Samsun", slug:"samsun"}
+];
 
 export {sehirler, talepturleri};
