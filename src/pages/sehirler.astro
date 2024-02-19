@@ -7,10 +7,12 @@ import Testimonials from '../components/Testimonials.astro';
 import CallToAction from '../components/CallToAction.astro';
 import Blog from '../components/Blog.astro';
 import {getUser} from '../auth';
-const user = await getUser(Astro.request);
+import { getUserAuth } from '../AuthFunc';
+
+const userData=await getUserAuth(Astro);
 ---
 
-<Layout user={user} title="Şehirler">
+<Layout user={userData.user} title="Şehirler">
 	<main class="space-y-40 mb-40">
 		<SehirlerSection/>
 		

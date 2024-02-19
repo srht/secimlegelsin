@@ -9,10 +9,12 @@ import AdaylarSection from '../../components/AdaylarSection.astro';
 import TaleplerSection from '../../components/TaleplerSection.astro';
 import {getUser} from '../../auth';
 import Container from '../../components/Container.astro';
-const user = await getUser(Astro.request);
+import { getUserAuth } from '../../AuthFunc';
+
+const userData=await getUserAuth(Astro);
 ---
 
-<Layout user={user} title="Talepler">
+<Layout user={userData.user} title="Talepler">
 	<main class="space-y-40 mb-40 pt-10">
 		<Container>
 			<div class="mb-20 space-y-4 px-6 md:px-0">

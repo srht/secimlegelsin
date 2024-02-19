@@ -1,19 +1,13 @@
 ---
-import { getUser } from "../auth";
 import Container from "./Container.astro";
 import LoginStatus from "./LoginStatus.astro";
 //const user = await getUser(Astro.request);
 //console.log(user)
 
-import Layout from "../layouts/Layout.astro";
-import { supabase } from "../lib/supabase";
+import { getUserAuth } from "../AuthFunc";
 
-const { cookies, redirect } = Astro;
-
-const { data, error } = await supabase.auth.getSession();
-
-const email = data?.session?.user?.email;
-const user=data?.session?.user;
+const userData=await getUserAuth(Astro);
+const user=userData.user;
 ---
 
 <header>
@@ -142,3 +136,4 @@ const user=data?.session?.user;
     @apply -rotate-45 -translate-y-1;
   }
 </style>
+../AuthFunc

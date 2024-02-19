@@ -4,11 +4,12 @@ import Container from "./Container.astro";
 import CategoryPic from "../lib/categorypic";
 import { supabase } from "../lib/supabase";
 import Alkis from './Alkis';
+import { getUserAuth } from '../AuthFunc';
 
 //const fields='title,description,address,county,category,id,count(votes(id))'
-const sessionData= await supabase.auth.getSession();
-const userData=sessionData?.data?.session?.user;
-const { data, error } = await supabase.from("requests").select().eq('requested_by',userData.id).order("created_at", {ascending: false}).limit(10)
+
+const userData=await getUserAuth(Astro);
+const { data, error } = await supabase.from("requests").select().eq('requested_by',userData.user.id).order("created_at", {ascending: false}).limit(10)
 //const {data,error}=await supabase.from('retrieveview').select()
 console.log('ddd',userData);
 ---

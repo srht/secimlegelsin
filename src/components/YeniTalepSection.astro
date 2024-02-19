@@ -5,11 +5,12 @@ import Container from "./Container.astro"
 import {talepturleri} from '../data/tumdata';
 import SehirlerDropdown from "./SehirlerDropdown.astro";
 import { supabase } from "../lib/supabase";
+import { getUserAuth } from "../AuthFunc";
 let ResultMessage=""
 if (Astro.request.method === 'POST') {
   try{
-    const sessionData= await supabase.auth.getSession();
-const userData=sessionData?.data?.session?.user;
+
+    const userData=await getUserAuth(Astro);
     // Getting posted data from our contact form
     const data = await Astro.request.formData();
     const baslik = data.get('baslik');
@@ -27,7 +28,7 @@ const userData=sessionData?.data?.session?.user;
       'category':kategoriler,
       'address':sehir,
       'county':ilce,
-      'requested_by':userData.id
+      'requested_by':userData.user.id
     }).then(res=>{
       console.log(res);
       ResultMessage="Talebiniz oluşturuldu. Kısa bir süre içinde onaylandıktan sonra yayınlanacak."

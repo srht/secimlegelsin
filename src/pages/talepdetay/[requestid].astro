@@ -4,15 +4,16 @@ import Alkis from '../../components/Alkis.jsx';
 import { supabase } from "../../lib/supabase.js";
 import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/Container.astro';
+import { getUserAuth } from '../../AuthFunc';
 
 //const id = Astro.url.searchParams.get('id')! || '';
 const id=Astro.params.requestid;
 //const user = await getUser(Astro.request);
-const sessionData= await supabase.auth.getSession();
+
+const user=await getUserAuth(Astro);
 const { data, error } = await supabase.from("retrieveview").select().eq('id', id).limit(1);
 const requestDetail=data[0];
-console.log(sessionData?.data?.session?.user?.id)
-const userData=sessionData?.data?.session?.user;
+const userData=user.user;
 ---
 
 <Layout user={userData} title="Şehirler">
