@@ -6,8 +6,8 @@ import LoginStatus from "./LoginStatus.astro";
 
 import { getUserAuth } from "../AuthFunc";
 
-const userData=await getUserAuth(Astro);
-const user=userData.user;
+const userData = await getUserAuth(Astro);
+const user = userData.user;
 ---
 
 <header>
@@ -72,14 +72,14 @@ const user=userData.user;
             <ul
               class="tracking-wide font-medium lg:text-sm flex-col flex lg:flex-row gap-6 lg:gap-0"
             >
-            <li>
-              <a
-                href="/talepler"
-                class="block md:px-4 transition hover:text-primary"
-              >
-                <span>En Son Yayınlananlar</span>
-              </a>
-            </li>
+              <li>
+                <a
+                  href="/enson"
+                  class="block md:px-4 transition hover:text-primary"
+                >
+                  <span>En Son Yayınlananlar</span>
+                </a>
+              </li>
               <li>
                 <a
                   href="/sehirler"
@@ -96,17 +96,38 @@ const user=userData.user;
                   <span>Adaylar</span>
                 </a>
               </li>
-              {(user)?
-                <li>
-                  <a href="/taleplerim" class="block md:px-4 transition hover:text-primary">
-                  Taleplerim
-                  </a>
-                </li>
-                :<span></span>}
+              {
+                user ? (
+                  <li>
+                    <a
+                      href="/taleplerim"
+                      class="block md:px-4 transition hover:text-primary"
+                    >
+                      Taleplerim
+                    </a>
+                  </li>
+                ) : (
+                  <span />
+                )
+              }
               <li>
-                
-{(user)?<div>Merhaba {user?.user_metadata?.name}! <form action="/api/auth/signout"><button type="submit">Çıkış</button></form></div>:<a href="/login" class="block md:px-4 transition hover:text-primary">Giriş Yap</a>}
-
+                {
+                  user ? (
+                    <div>
+                      Merhaba {user?.user_metadata?.name}!{" "}
+                      <form action="/api/auth/signout">
+                        <button type="submit">Çıkış</button>
+                      </form>
+                    </div>
+                  ) : (
+                    <a
+                      href="/login"
+                      class="block md:px-4 transition hover:text-primary"
+                    >
+                      Giriş Yap
+                    </a>
+                  )
+                }
               </li>
             </ul>
           </div>
@@ -136,4 +157,3 @@ const user=userData.user;
     @apply -rotate-45 -translate-y-1;
   }
 </style>
-../AuthFunc

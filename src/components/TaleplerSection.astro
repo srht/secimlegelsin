@@ -4,16 +4,15 @@ import Container from "./Container.astro";
 import CategoryPic from "../lib/categorypic";
 import { supabase } from "../lib/supabase";
 import Alkis from './Alkis';
+import { FetchTalepler } from "../data/fetchTalepler";
 import { getUserAuth } from '../AuthFunc';
 
 //const fields='title,description,address,county,category,id,count(votes(id))'
-const { sehir } = Astro.params;
+const { sehir,recent } = Astro.props;
 
 const userData=await getUserAuth(Astro);
-const { data, error } = sehir? await supabase.from("retrieveview").select().eq('address',sehir.toLocaleUpperCase('tr')[0]+sehir.substring(1)).limit(10)
-:await supabase.from("retrieveview").select().order("created_at", {ascending: false}).limit(10)
-//const {data,error}=await supabase.from('retrieveview').select()
-console.log(data);
+const data=await FetchTalepler(recent, sehir);
+
 ---
 
 <div id="blog">
@@ -23,9 +22,11 @@ console.log(data);
         data?.map(request=>(
        
         <div
-        class="group p-4 columns flex sm:p-4 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
+        class="group p-4 columns relative flex sm:p-4 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
       >
+      {(request.address!=="------")?<div class="rounded-3xl bg-secondary absolute top-0 left-0 p-1 px-2 z-50"><strong>{request.address}</strong></div>:<span></span>}
         <div class="mr-2 w-3/12">
+          
           <img
             src={`/images/${CategoryPic(request.category)}.png`}
             alt="art cover"
@@ -49,7 +50,7 @@ console.log(data);
         </div>
         <div class="ml-5 w-1/12">
           <Alkis user={userData} requestid={request.id} client:load />
-          {!userData&&request.count>0?<span class="text-lg"><strong>{request.count}</strong></span>:<span></span>}
+          {request.count>0?<span class="text-lg"><strong id={"vr-"+request.id}>{request.count}</strong></span>:<span></span>}
           </a>
           </div>
       </div>

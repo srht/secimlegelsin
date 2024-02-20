@@ -1,40 +1,21 @@
 ---
-import Stats from "../../components/Stats.astro";
-import HeroSection from "../../components/HeroSection.astro";
-import Layout from "../../layouts/Layout.astro";
-import Testimonials from "../../components/Testimonials.astro";
-import CallToAction from "../../components/CallToAction.astro";
-import Blog from "../../components/Blog.astro";
-import AdaylarSection from "../../components/AdaylarSection.astro";
-import TaleplerSection from "../../components/TaleplerSection.astro";
-import { sehirler } from "../../data/tumdata";
-import { getUser } from "../../auth";
-import Container from "../../components/Container.astro";
-import { getUserAuth } from "../../AuthFunc";
+import Stats from "../components/Stats.astro";
+import HeroSection from "../components/HeroSection.astro";
+import Layout from "../layouts/Layout.astro";
+import Testimonials from "../components/Testimonials.astro";
+import CallToAction from "../components/CallToAction.astro";
+import Blog from "../components/Blog.astro";
+import AdaylarSection from "../components/AdaylarSection.astro";
+import TaleplerSection from "../components/TaleplerSection.astro";
+import { getUser } from "../auth";
+import Container from "../components/Container.astro";
+import { getUserAuth } from "../AuthFunc";
 
 const userData = await getUserAuth(Astro);
-
-export function getStaticPaths() {
-  return [
-    { params: { sehir: "ankara" } },
-    { params: { sehir: "istanbul" } },
-    { params: { sehir: "bursa" } },
-    { params: { sehir: "izmir" } },
-    { params: { sehir: "adana" } },
-    { params: { sehir: "antalya" } },
-    { params: { sehir: "konya" } },
-    { params: { sehir: "gaziantep" } },
-    { params: { sehir: "mersin" } },
-    { params: { sehir: "diyarbakir" } },
-    { params: { sehir: undefined } },
-  ];
-}
-
-const { sehir } = Astro.params;
 ---
 
 <Layout user={userData.user} title="Talepler">
-  <main class="space-y-20 mb-40 pt-40">
+  <main class="space-y-20 mb-40 pt-10">
     <Container>
       <div class="mb-20 space-y-4 px-6 md:px-0">
         <svg
@@ -51,10 +32,10 @@ const { sehir } = Astro.params;
         <h2
           class="text-center text-2xl font-bold text-gray-800 dark:text-white md:text-4xl"
         >
-          Talepler / {sehir.toLocaleUpperCase("tr")}
+          En Son Talepler
         </h2>
       </div>
     </Container>
-    <TaleplerSection />
+    <TaleplerSection recent="true" />
   </main>
 </Layout>
