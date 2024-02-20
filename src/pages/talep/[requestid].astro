@@ -12,12 +12,13 @@ const id = Astro.params.requestid;
 
 const user = await getUserAuth(Astro);
 const { data, error } = await supabase
-  .from("retrieveview")
+  .from("requests")
   .select()
   .eq("id", id)
   .limit(1);
 const requestDetail = data[0];
 const userData = user.user;
+console.log(requestDetail)
 ---
 
 <Layout user={userData} title="Şehirler">
@@ -44,19 +45,23 @@ const userData = user.user;
               >
                 {requestDetail?.title}
               </h2>
+              
             </div>
           </div>
           <div class="grid gap-8">
+            
             <div
               class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
             >
-              <div class="relative overflow-hidden rounded-xl">
+            
+              <div class="overflow-hidden rounded-xl relative">
+                {(requestDetail.address!=="------")?<div class="rounded-xl bg-secondary absolute top-0 left-0 p-1 px-2 z-50"><strong>{requestDetail?.address}</strong></div>:<span></span>}
                 <img
                   src={`/images/${CategoryPic(requestDetail?.category)}.png`}
                   alt="art cover"
                   loading="lazy"
                   width="1000"
-                  height="667"
+                  height="367"
                   class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
                 />
               </div>
@@ -74,7 +79,7 @@ const userData = user.user;
                   {
                     !userData && requestDetail.count > 0 ? (
                       <span class="text-lg">
-                        <strong>{requestDetail.count}</strong>
+                        <strong id={"vr-"+requestDetail.id}>{requestDetail.count}</strong>
                       </span>
                     ) : (
                       <span />
@@ -87,8 +92,8 @@ const userData = user.user;
                     target="_blank"
                     href=`https://twitter.com/intent/tweet?url=https://secimlegelsin.com/talepdetay/${requestDetail?.id}&text=${requestDetail?.description} %23YerelSecim #AdaydanIstegim @secimlegelsin`
                   >
-                    <span class="relative text-sm font-semibold text-white"
-                      >X'te Paylaş</span
+                    <span class="relative text-sm font-semibold text-white bg-[url('/images/x-social.png')] bg-[length:20px] bg-no-repeat px-6"
+                      >&nbsp;&nbsp;Paylaş</span
                     ></a
                   >
                 </div>
