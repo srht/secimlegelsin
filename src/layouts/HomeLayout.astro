@@ -1,38 +1,46 @@
 ---
 import AppFooter from "../components/AppFooter.astro";
-import AppHeader from "../components/AppHeader.astro"
+import AppHeader from "../components/AppHeader.astro";
 import { supabase } from "../lib/supabase";
 ---
 
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Seçimle Gelsin #YerelSeçim2024">
-		<meta property="og:url" content="https://secimlegelsin.com">
-		<meta property="og:type" content="article">
-		<meta property="og:title" content="Seçimle Gelsin">
-		<meta property="og:image" content="https://secimlegelsin.com/images/tasima.png">
-		<title>{Astro.props.title} / Seçimle Gelsin</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Seçimle Gelsin Seçimlerde talebiniz olan konuları, şikayetlerinizi gündeme getirin! #YerelSeçim2024"
+    />
+    <meta property="og:url" content="https://secimlegelsin.com" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Seçimle Gelsin" />
+    <meta
+      property="og:image"
+      content="https://secimlegelsin.com/images/tasima.png"
+    />
+    <title>{Astro.props.title} / Seçimle Gelsin</title>
 
-		<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
-	</head>
-	<body class="bg-white dark:bg-gray-900">
-		<AppHeader user={null}/>
-		<slot />
-	</body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white dark:bg-gray-900">
+    <AppHeader user={null} />
+    <slot />
+  </body>
 </html>
 <style>
-	html {
-		font-family: Urbanist, sans-serif;
-		scroll-behavior: smooth;
-	}
+  html {
+    font-family: Urbanist, sans-serif;
+    scroll-behavior: smooth;
+  }
 
-	body {
-		margin: 0;
-	}
+  body {
+    margin: 0;
+  }
 </style>
