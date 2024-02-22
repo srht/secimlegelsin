@@ -1,15 +1,21 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import vercel from "@astrojs/vercel/serverless";
 dotenv.config({
-  path: '.env'
+  path: ".env",
 });
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: "server",
   integrations: [react(), tailwind()],
-  adapter: vercel()
+  adapter: vercel(),
+  redirects: {
+    "/talepdetay/[...slug]": {
+      status: 302,
+      destination: "/talep/[...slug]",
+    },
+  },
 });
