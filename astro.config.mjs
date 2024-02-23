@@ -13,9 +13,6 @@ export default defineConfig({
   integrations: [react(), tailwind()],
   adapter: vercel(),
   redirects: {
-    "/talepdetay/[...slug]": {
-      status: 302,
-      destination: "/talep/[...slug]",
-    },
+    "/talepdetay/[...slug]": "/talep/[...slug]",
   },
 });
