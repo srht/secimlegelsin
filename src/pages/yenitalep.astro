@@ -8,10 +8,11 @@ import CallToAction from "../components/CallToAction.astro";
 import Blog from "../components/Blog.astro";
 import YeniTalepSection from "../components/YeniTalepSection.astro";
 import { supabase } from "../lib/supabase";
-import { RedirectFunct, getUserAuth } from "../AuthFunc";
+import { getUserAuth } from "../AuthFunc";
 
 const userData = await getUserAuth(Astro);
-if (!userData.accessToken || !userData.refreshToken) {
+
+if (!userData?.session?.access_token || !userData?.session?.refresh_token) {
   return Astro.redirect("/login");
 }
 ---

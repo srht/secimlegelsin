@@ -5,8 +5,7 @@ export async function getUserAuth(context: APIContext) {
   const { cookies, redirect } = context;
   const accessToken = cookies.get("sb-access-token");
   const refreshToken = cookies.get("sb-refresh-token");
-  console.log(accessToken)
-  console.log(refreshToken)
+
   if (!accessToken || !refreshToken) {
     return context.redirect("/login");
   }
@@ -15,5 +14,6 @@ export async function getUserAuth(context: APIContext) {
     refresh_token: refreshToken.value,
     access_token: accessToken.value,
   });
+
   return data;
 }
