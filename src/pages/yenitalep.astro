@@ -1,22 +1,24 @@
 ---
-import Stats from '../components/Stats.astro';
-import SehirlerSection from '../components/SehirlerSection.astro';
-import HeroSection from '../components/HeroSection.astro';
-import Layout from '../layouts/Layout.astro';
-import Testimonials from '../components/Testimonials.astro';
-import CallToAction from '../components/CallToAction.astro';
-import Blog from '../components/Blog.astro';
-import YeniTalepSection from '../components/YeniTalepSection.astro';
+import Stats from "../components/Stats.astro";
+import SehirlerSection from "../components/SehirlerSection.astro";
+import HeroSection from "../components/HeroSection.astro";
+import Layout from "../layouts/Layout.astro";
+import Testimonials from "../components/Testimonials.astro";
+import CallToAction from "../components/CallToAction.astro";
+import Blog from "../components/Blog.astro";
+import YeniTalepSection from "../components/YeniTalepSection.astro";
 import { supabase } from "../lib/supabase";
-import { getUserAuth } from '../AuthFunc';
+import { getUserAuth } from "../AuthFunc";
 
-const userData=await getUserAuth(Astro);
-
+const userData = await getUserAuth(Astro);
+console.log(userData);
+if (!userData.accessToken || !userData.refreshToken) {
+  return Astro.redirect("/login");
+}
 ---
 
 <Layout user={userData.user} title="Şehirler">
-	<main class="space-y-40 mb-40">
-		<YeniTalepSection/>
-		
-	</main>
+  <main class="space-y-40 mb-40">
+    <YeniTalepSection />
+  </main>
 </Layout>

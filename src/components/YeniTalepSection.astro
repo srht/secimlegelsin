@@ -1,109 +1,149 @@
 ---
-import Container from "./Container.astro"
+import Container from "./Container.astro";
 
 // Türkiye'deki bazı şehirleri içeren bir dizi
-import {talepturleri} from '../data/tumdata';
+import { talepturleri } from "../data/tumdata";
 import SehirlerDropdown from "./SehirlerDropdown.astro";
 import { supabase } from "../lib/supabase";
 import { getUserAuth } from "../AuthFunc";
-let ResultMessage=""
-if (Astro.request.method === 'POST') {
-  try{
-
-    const userData=await getUserAuth(Astro);
+let ResultMessage = "";
+if (Astro.request.method === "POST") {
+  try {
+    const userData = await getUserAuth(Astro);
     // Getting posted data from our contact form
     const data = await Astro.request.formData();
-    const baslik = data.get('baslik');
-    const akelimeler = data.get('kelimeler');
-    const keywordsArray=akelimeler.toString().split(',')
-    const sehir = data.get('sehir');
-    const ilce = data.get('ilce');
-    const kategoriler = data.get('kategoriler');
-    const talep = data.get('talep');
+    const baslik = data.get("baslik");
+    const akelimeler = data.get("kelimeler");
+    const keywordsArray = akelimeler.toString().split(",");
+    const sehir = data.get("sehir");
+    const ilce = data.get("ilce");
+    const kategoriler = data.get("kategoriler");
+    const talep = data.get("talep");
 
-    await supabase.from('requests').insert({
-      'title':baslik,
-      'description':talep,
-      'keywords':keywordsArray,
-      'category':kategoriler,
-      'address':sehir,
-      'county':ilce,
-      'requested_by':userData.user.id
-    }).then(res=>{
-      console.log(res);
-      ResultMessage="Talebiniz oluşturuldu. Kısa bir süre içinde onaylandıktan sonra yayınlanacak."
-    });
-    
-  }catch(ex){
-
-  }
+    await supabase
+      .from("requests")
+      .insert({
+        title: baslik,
+        description: talep,
+        keywords: keywordsArray,
+        category: kategoriler,
+        address: sehir,
+        county: ilce,
+        requested_by: userData.user.id,
+      })
+      .then((res) => {
+        console.log(res);
+        ResultMessage =
+          "Talebiniz oluşturuldu. Kısa bir süre içinde onaylandıktan sonra yayınlanacak.";
+      });
+  } catch (ex) {}
 }
 ---
 
 <div id="sehirler">
   <Container>
     <div class="md:w-2/3 lg:w-1/2">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-secondary">
-        <path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clip-rule="evenodd" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-6 h-6 text-secondary"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z"
+          clip-rule="evenodd"></path>
       </svg>
-      
-      <h2 class="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
+
+      <h2
+        class="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl"
+      >
         Yeni Talep
       </h2>
       <p class="text-gray-600 dark:text-gray-300">Talebinizi oluşturun</p>
-      <br>
+      <br />
       <p class="text-xl"><strong>{ResultMessage}</strong></p>
     </div>
     <div class="grid gap-8">
-    <div class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
-      <div class="relative overflow-hidden rounded-xl">
-        <img src="https://images.unsplash.com/photo-1661749711934-492cd19a25c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80"
-        alt="art cover" loading="lazy" width="1000" height="667" class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"/>
+      <div
+        class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
+      >
+        <div class="relative overflow-hidden rounded-xl">
+          <img
+            src="https://images.unsplash.com/photo-1661749711934-492cd19a25c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80"
+            alt="art cover"
+            loading="lazy"
+            width="1000"
+            height="667"
+            class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
+          />
+        </div>
+        <div class="mt-6 relative">
+          <form method="post">
+            <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
+              Talep detayını yazın
+            </h3>
+            <div class="mt-2">
+              <label class="block text-sm text-gray-600">Başlık:</label>
+              <input
+                type="text"
+                name="baslik"
+                placeholder=""
+                class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none"
+              />
+            </div>
+            <div class="mt-2">
+              <label class="block text-sm text-gray-600"
+                >Anahtar Kelimeler:</label
+              >
+              <input
+                type="text"
+                name="kelimeler"
+                placeholder="anahtar kelimeler"
+                class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none"
+              />
+            </div>
+            <div class="mt-2">
+              <label class="block text-sm text-gray-600">Şehir Seçin:</label>
+              <SehirlerDropdown />
+            </div>
+            <div class="mt-2">
+              <label class="block text-sm text-gray-600">İlçe:</label>
+              <input
+                type="text"
+                name="ilce"
+                placeholder="Varsa İlçe"
+                class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none"
+              />
+            </div>
+            <div class="mt-2">
+              <label class="block text-sm text-gray-600">Kategori:</label>
+              <select
+                name="kategoriler"
+                class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none"
+              >
+                <option>Lütfen Seçin</option>
+                {talepturleri.map((tur) => <option>{tur.name}</option>)}
+              </select>
+            </div>
+            <div class="mt-2">
+              <label class="block text-sm text-gray-600">Talep Detayı:</label>
+              <textarea
+                name="talep"
+                class="bg-white h-40 w-full px-5 py-4 rounded-lg border focus:outline-none"
+                placeholder="Talep detayınızı girin"></textarea>
+            </div>
+            <div class="mt-2">
+              <button
+                type="submit"
+                class="focus:outline-none text-white bg-primary hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-primary dark:focus:ring-purple-900"
+              >
+                Talep Oluştur
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="mt-6 relative">
-        <form method="post">
-        <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
-          Talep detayını yazın
-        </h3>
-        <div class="mt-2">
-          <label class="block text-sm text-gray-600">Başlık:</label>
-          <input type="text" name="baslik" placeholder="" class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none">
-        </div>
-        <div class="mt-2">
-          <label class="block text-sm text-gray-600">Anahtar Kelimeler:</label>
-          <input type="text" name="kelimeler" placeholder="anahtar kelimeler" class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none">
-        </div>
-        <div class="mt-2">
-          <label class="block text-sm text-gray-600">Şehir Seçin:</label>
-          <SehirlerDropdown />
-        </div>
-        <div class="mt-2">
-          <label class="block text-sm text-gray-600">İlçe:</label>
-          <input type="text" name="ilce" placeholder="Varsa İlçe" class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none">
-        </div>
-        <div class="mt-2">
-          <label class="block text-sm text-gray-600">Kategori:</label>
-          <select name="kategoriler" class="bg-white h-10 w-full px-5 rounded-lg border focus:outline-none">
-            <option>Lütfen Seçin</option>
-            {
-              talepturleri.map(tur=>(<option>{tur.name}</option>))
-            }
-          </select>
-        </div>
-        <div class="mt-2">
-          <label class="block text-sm text-gray-600">Talep Detayı:</label>
-          <textarea name="talep" class="bg-white h-40 w-full px-5 py-4 rounded-lg border focus:outline-none" placeholder="Talep detayınızı girin"></textarea>
-        </div>
-       <div class="mt-2">
-        <button type="submit" class="focus:outline-none text-white bg-primary hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-primary dark:focus:ring-purple-900">
-          Talep Oluştur
-        </button>
-       </div>
-        </form>
-      </div>
-      
-    </div>
-      
     </div>
   </Container>
 </div>
