@@ -11,7 +11,9 @@ dotenv.config({
 export default defineConfig({
   output: "server",
   integrations: [react(), tailwind()],
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: { enabled: true }
+  }),
   redirects: {
     "/talepdetay/[...slug]": "/talep/[...slug]",
   },
