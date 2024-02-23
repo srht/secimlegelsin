@@ -13,12 +13,16 @@ const id = Astro.params.requestid;
 const user = await getUserAuth(Astro);
 const { data, error } = await supabase
   .from("requests")
-  .select()
+  .select("*,votes(count)")
   .eq("id", id)
   .limit(1);
 const requestDetail = data[0];
 const userData = user.user;
-console.log(requestDetail)
+const voteCount =
+  requestDetail &&
+  requestDetail.votes.length > 0 &&
+  requestDetail.votes[0].count;
+console.log(requestDetail);
 ---
 
 <Layout user={userData} title="Şehirler">
@@ -45,17 +49,22 @@ console.log(requestDetail)
               >
                 {requestDetail?.title}
               </h2>
-              
             </div>
           </div>
           <div class="grid gap-8">
-            
             <div
               class="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10"
             >
-            
               <div class="overflow-hidden rounded-xl relative">
-                {(requestDetail.address!=="------")?<div class="rounded-xl bg-secondary absolute top-0 left-0 p-1 px-2 z-50"><strong>{requestDetail?.address}</strong></div>:<span></span>}
+                {
+                  requestDetail.address !== "------" ? (
+                    <div class="rounded-xl bg-secondary absolute top-0 left-0 p-1 px-2 z-50">
+                      <strong>{requestDetail?.address}</strong>
+                    </div>
+                  ) : (
+                    <span />
+                  )
+                }
                 <img
                   src={`/images/${CategoryPic(requestDetail?.category)}.png`}
                   alt="art cover"
@@ -77,9 +86,11 @@ console.log(requestDetail)
                   />
                   <br />
                   {
-                    !userData && requestDetail.count > 0 ? (
+                    voteCount > 0 ? (
                       <span class="text-lg">
-                        <strong id={"vr-"+requestDetail.id}>{requestDetail.count}</strong>
+                        <strong id={"vr-" + requestDetail.id}>
+                          {voteCount}
+                        </strong>
                       </span>
                     ) : (
                       <span />
@@ -92,7 +103,8 @@ console.log(requestDetail)
                     target="_blank"
                     href=`https://twitter.com/intent/tweet?url=https://secimlegelsin.com/talepdetay/${requestDetail?.id}&text=${requestDetail?.description} %23YerelSecim #AdaydanIstegim @secimlegelsin`
                   >
-                    <span class="relative text-sm font-semibold text-white bg-[url('/images/x-social.png')] bg-[length:20px] bg-no-repeat px-6"
+                    <span
+                      class="relative text-sm font-semibold text-white bg-[url('/images/x-social.png')] bg-[length:20px] bg-no-repeat px-6"
                       >&nbsp;&nbsp;Paylaş</span
                     ></a
                   >
