@@ -6,7 +6,6 @@ import { supabase } from "../lib/supabase";
 import Alkis from './Alkis';
 import { FetchTalepler } from "../data/fetchTalepler";
 import { getUserAuth } from '../AuthFunc';
-
 //const fields='title,description,address,county,category,id,count(votes(id))'
 const { sehir,recent } = Astro.props;
 
@@ -40,6 +39,7 @@ const data=await FetchTalepler(recent, sehir);
             {request.title}
           </h3>
           </a>
+         {request.category}
           <a
               href={`/talep/${request.id}`}
               class="relative flex h-9 w-full items-center justify-center mt-4 px-4 before:absolute before:inset-0 before:rounded-full before:bg-btntalep before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
@@ -49,6 +49,7 @@ const data=await FetchTalepler(recent, sehir);
             </a>
         </div>
         <div class="ml-5 w-1/12">
+          
           <Alkis user={userData} requestid={request.id} client:load />
           {request.count>0?<span class="text-lg"><strong id={"vr-"+request.id}>{request.count}</strong></span>:<span></span>}
           </a>
