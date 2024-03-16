@@ -7,7 +7,9 @@ import Alkis from './Alkis';
 import { FetchTalepler } from "../data/fetchTalepler";
 import { getUserAuth } from '../AuthFunc';
 //const fields='title,description,address,county,category,id,count(votes(id))'
-const { sehir,recent } = Astro.params;
+const { sehir } = Astro.params;
+const { recent } = Astro.props;
+console.log(recent)
 console.log(Astro.params)
 const userData=await getUserAuth(Astro);
 const data=await FetchTalepler(recent, sehir);

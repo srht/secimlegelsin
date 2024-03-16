@@ -3,21 +3,20 @@ import Container from "./Container.astro";
 import { Analytics } from '@vercel/analytics/react';
 ---
 
-<footer class="py-20 md:py-40">
+<footer class="py-20 md:py-20">
     <Container>
-      <div class="m-auto md:w-10/12 lg:w-8/12 xl:w-6/12">
-        <div class="flex flex-wrap items-center justify-between md:flex-nowrap">
+      <div class="m-auto">
+        <div class="items-center">
           <div
-            class="flex w-full justify-center space-x-12 text-gray-600 dark:text-gray-300 sm:w-7/12 md:justify-start"
+            class="w-full space-x-12 text-gray-600 dark:text-gray-300 sm:w-7/12"
           >
-            <ul class="list-inside list-disc flex inline-grid">
+            <ul class="list-inside">
               <li><a href="/yenitalep" class="transition hover:text-primary">Yeni Talep</a></li>
   
-              <li><a href="/adaylar" class="transition hover:text-primary">Adaylar</a></li>
-              <li><a href="/talepler" class="transition hover:text-primary">Ülke Geneli</a></li>
-              <li><a href="/talepler/enson" class="transition hover:text-primary">En Son Yayınlanan Talepler</a></li>
-              <li><a href="/iletisim" class="transition hover:text-primary">İletişim</a></li>
-              <li><a href="/kullanimsartlari" class="transition hover:text-primary">Kullanım Şartları</a></li>
+              <li><a href="/sehirler" class="transition hover:text-primary">Şehirler</a></li>
+              <li><a href="/enson" class="transition hover:text-primary">En Son Yayınlanan Talepler</a></li>
+              <li><a href="https://forms.gle/gcfMa5NxmdfYqNYN6" target="_blank" class="transition hover:text-primary">İletişim</a></li>
+            
             </ul>
   
           </div>
@@ -26,4 +25,3 @@ import { Analytics } from '@vercel/analytics/react';
       </div>
     </Container>
 </footer>
-<Analytics />
