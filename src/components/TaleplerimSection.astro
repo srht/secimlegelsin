@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import Container from "./Container.astro";
 import CategoryPic from "../lib/categorypic";
 import { supabase } from "../lib/supabase";
-import Alkis from './Alkis';
 import { getUserAuth } from '../AuthFunc';
 
 //const fields='title,description,address,county,category,id,count(votes(id))'
@@ -31,13 +30,13 @@ const { data, error } = await supabase.from("requests").select().eq('requested_b
           />
         </div>
         <div class="w-8/12 relative">
-          <a href={`/talep/${request.id}`}>
+          <a href={`/talep/${request.slug}`}>
           <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
             {request.title}
           </h3>
           </a>
           <a
-              href={`/talep/${request.id}`}
+              href={`/talep/${request.slug}`}
               class="relative flex h-9 w-full items-center justify-center mt-4 px-4 before:absolute before:inset-0 before:rounded-full before:bg-btntalep before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
             >
               <span class="relative text-sm font-semibold text-white"

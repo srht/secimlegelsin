@@ -6,6 +6,17 @@ import { talepturleri } from "../data/tumdata";
 import SehirlerDropdown from "./SehirlerDropdown.astro";
 import { supabase } from "../lib/supabase";
 import { getUserAuth } from "../AuthFunc";
+function createSlug(title) {
+  return title
+  .replace(/İ/g, 'i').replace(/I/g, 'i').replace(/ı/g, 'i')
+    .toLowerCase() // Convert to lowercase
+    .normalize('NFD') // Normalize the string to NFD Unicode form
+    .replace(/[\u0300-\u036f]/g, '') // Remove all diacritics (accents)
+    .replace(/[^a-z0-9\s]/g, '') // Remove all non-alphanumeric characters except spaces
+    .trim() // Trim leading and trailing spaces
+    .replace(/\s+/g, '-') // Replace spaces with dashes
+    .replace(/-+/g, '-'); // Replace multiple dashes with a single dash
+}
 let ResultMessage = "";
 if (Astro.request.method === "POST") {
   try {
@@ -20,6 +31,7 @@ if (Astro.request.method === "POST") {
     const kategoriler = data.get("kategoriler");
     const talep = data.get("talep");
 
+    const slug=createSlug(baslik);
     await supabase
       .from("requests")
       .insert({
@@ -30,6 +42,7 @@ if (Astro.request.method === "POST") {
         address: sehir,
         county: ilce,
         requested_by: userData.user.id,
+        slug:slug
       })
       .then((res) => {
         console.log(res);
