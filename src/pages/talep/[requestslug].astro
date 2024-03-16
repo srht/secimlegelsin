@@ -5,13 +5,23 @@ import { supabase } from "../../lib/supabase.js";
 import { getUserAuth } from "../../AuthFunc.js";
 import Layout from "../../layouts/Layout.astro";
 import Container from "../../components/Container.astro";
-
+function isNumber(value?: string | number): boolean
+{
+   return ((value != null) &&
+           (value !== '') &&
+           !isNaN(Number(value.toString())));
+}
 //const id = Astro.url.searchParams.get('id')! || '';
 const request_slug = Astro.params.requestslug;
 //const user = await getUser(Astro.request);
 
 const user = await getUserAuth(Astro);
-const { data, error } = await supabase
+
+const { data, error } = isNumber(request_slug)? await supabase
+  .from("requests")
+  .select("*,votes(count)")
+  .eq("id", Number(request_slug))
+  .limit(1): await supabase
   .from("requests")
   .select("*,votes(count)")
   .eq("slug", request_slug)
