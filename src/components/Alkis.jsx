@@ -22,7 +22,7 @@ export default function Alkis(param) {
     supabase
       .from("votes")
       .insert({
-        selection: "afasd",
+        selection: "1",
         userid: param.user.id,
         requestid: param.requestid,
       })

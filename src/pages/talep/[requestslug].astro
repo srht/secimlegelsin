@@ -35,7 +35,7 @@ const voteCount =
 console.log(requestDetail);
 ---
 
-<Layout user={userData} title="Şehirler">
+<Layout user={userData} category={requestDetail?.category} title="Şehirler">
   <main class="space-y-40 mb-40">
     <div id="sehirler">
       <Container>
@@ -83,21 +83,20 @@ console.log(requestDetail);
                   src={`/images/${CategoryPic(requestDetail?.category)}.png`}
                   alt="art cover"
                   loading="lazy"
-                  width="1000"
-                  height="367"
                   class="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
                 />
               </div>
-              <div class="mt-6 relative">
+              <div class="mt-6 relative text-xl p-3">
                 {requestDetail.description}
               </div>
               <div class="flex justify-between">
-                <div>
+                <div class="flex justify-start">
                   <Alkis
                     user={userData}
                     requestid={requestDetail?.id}
                     client:load
                   />
+                  <div class="p-2">
                   {
                     voteCount > 0 ? (
                       <span class="text-lg">
@@ -105,11 +104,12 @@ console.log(requestDetail);
                           {voteCount}
                         </strong>
                       </span>
-                      <span><strong>kez desteklendi</strong></span>
+                      <span class="text-lg">&nbsp;<strong>kez desteklendi</strong></span>
                     ) : (
                       <span />
                     )
                   }
+                  </div>
                 </div>
                 <div>
                   <a
