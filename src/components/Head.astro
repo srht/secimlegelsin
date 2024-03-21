@@ -3,9 +3,11 @@ import CategoryPic from "../lib/categorypic";
 
 let category =Astro.props.category;
 if(!category) category="Toplu Taşıma";
+
+console.log(Astro.props)
 ---
 <title>{Astro.props.title} / Seçimle Gelsin</title>
-<meta name="description" content="Seçimle Gelsin #YerelSeçim2024">
+<meta name="description" content="Seçimle Gelsin Seçimlerde talebiniz olan konuları, şikayetlerinizi gündeme getirin! Sunulmuş talepler için destek verin! #YerelSeçim2024">
 <meta property="og:url" content="https://secimlegelsin.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Seçimle Gelsin">

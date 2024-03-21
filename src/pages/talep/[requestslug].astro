@@ -32,10 +32,9 @@ const voteCount =
   requestDetail &&
   requestDetail.votes.length > 0 &&
   requestDetail.votes[0].count;
-console.log(requestDetail);
 ---
 
-<Layout user={userData} category={requestDetail?.category} title="Şehirler">
+<Layout user={userData} category={requestDetail?.category} title={requestDetail.title}>
   <main class="space-y-40 mb-40">
     <div id="sehirler">
       <Container>
